@@ -1,11 +1,11 @@
 /*
-Copyright 2019 The Kubernetes Authors.
+Copyright AppsCode Inc. and Contributors
 
-Licensed under the Apache License, Version 2.0 (the "License");
+Licensed under the AppsCode Free Trial License 1.0.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+    https://github.com/appscode/licenses/raw/1.0.0/AppsCode-Free-Trial-1.0.0.md
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 // +k8s:deepcopy-gen=package
-// +k8s:conversion-gen=k8s.io/kubernetes/pkg/controller/podautoscaler/config
+// +k8s:conversion-gen=kubedb.dev/autoscaler/pkg/config
 // +k8s:conversion-gen-external-types=k8s.io/kube-controller-manager/config/v1alpha1
 
-package v1alpha1 // import "k8s.io/kubernetes/pkg/controller/podautoscaler/config/v1alpha1"
+package v1alpha1 // import "kubedb.dev/autoscaler/pkg/config/v1alpha1"

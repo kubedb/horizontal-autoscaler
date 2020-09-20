@@ -1,11 +1,11 @@
 /*
-Copyright 2017 The Kubernetes Authors.
+Copyright AppsCode Inc. and Contributors
 
-Licensed under the Apache License, Version 2.0 (the "License");
+Licensed under the AppsCode Free Trial License 1.0.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+    https://github.com/appscode/licenses/raw/1.0.0/AppsCode-Free-Trial-1.0.0.md
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,8 +21,9 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
 	autoscalingapi "k8s.io/api/autoscaling/v2beta2"
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/meta/testrestmapper"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -38,9 +39,15 @@ import (
 	metricsfake "k8s.io/metrics/pkg/client/clientset/versioned/fake"
 	cmfake "k8s.io/metrics/pkg/client/custom_metrics/fake"
 	emfake "k8s.io/metrics/pkg/client/external_metrics/fake"
-
-	"github.com/stretchr/testify/assert"
 )
+
+var fixedTimestamp = time.Date(2015, time.November, 10, 12, 30, 0, 0, time.UTC)
+
+// timestamp is used for establishing order on metricPoints
+type metricPoint struct {
+	level     uint64
+	timestamp int
+}
 
 type restClientTestCase struct {
 	desiredMetricValues PodMetricsInfo
@@ -386,4 +393,8 @@ func TestRESTClientCPUEmptyMetricsForOnePod(t *testing.T) {
 		reportedPodMetrics: [][]int64{{100}, {300, 400}, {}},
 	}
 	tc.runTest(t)
+}
+
+func offsetTimestampBy(t int) time.Time {
+	return fixedTimestamp.Add(time.Duration(t) * time.Minute)
 }
